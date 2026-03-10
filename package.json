@@ -1,0 +1,23 @@
+{
+  "name": "xyzbank-qa-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:deposit": "npx playwright test tests/deposit.spec.ts",
+    "test:withdrawal": "npx playwright test tests/withdrawal.spec.ts",
+    "test:negative": "npx playwright test tests/negative-deposit.spec.ts",
+    "test:headed": "npx playwright test --headed",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.4.0",
+    "dotenv": "^17.3.1"
+  }
+}
