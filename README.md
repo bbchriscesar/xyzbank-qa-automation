@@ -32,7 +32,7 @@ xyzbank-qa-automation/
 ## Design Decisions
 
 - **Page Object Model**: Each page/tab is its own class. Locators are `private readonly` — tests interact only through semantic methods.
-- **Fixtures**: Custom `test.extend` injects page objects — tests declare what they need via destructuring.
+- **Fixtures**: Custom `test.extend` is used to inject page objects. This approach ensures **Lazy Initialization** — only the pages declared in a test's parameters are instantiated. This saves hardware resources (CPU/Memory) as the test suite grows, while also removing boilerplate code from `beforeEach` hooks.
 - **Separation of Concerns**: Pages own locators + actions. Tests own flow orchestration + assertions (via `test.step` blocks).
 - **Environment**: `dotenv` loads `.env` at config level. `BASE_URL` is configurable without code changes.
 - **Screenshots**: Captured at key steps (post-login, post-deposit, transactions view) and saved to `screenshots/`.
