@@ -8,6 +8,7 @@ Playwright + TypeScript test automation for the [XYZ Bank demo application](http
 xyzbank-qa-automation/
 ├── .env                          # Environment variables (gitignored)
 ├── .env.example                  # Template for env vars
+├── .github/workflows/            # CI/CD (GitHub Actions)
 ├── playwright.config.ts          # Playwright configuration with dotenv
 ├── src/
 │   ├── pages/                    # Page Object Model classes
@@ -33,21 +34,27 @@ xyzbank-qa-automation/
 - **Page Object Model**: Each page/tab is its own class. Locators are `private readonly` — tests interact only through semantic methods.
 - **Fixtures**: Custom `test.extend` injects page objects — tests declare what they need via destructuring.
 - **Separation of Concerns**: Pages own locators + actions. Tests own flow orchestration + assertions (via `test.step` blocks).
-- **Environment**: `dotenv` loads `.env` at config level. `BASE_URL` and `DEFAULT_CUSTOMER` are configurable without code changes.
+- **Environment**: `dotenv` loads `.env` at config level. `BASE_URL` is configurable without code changes.
 - **Screenshots**: Captured at key steps (post-login, post-deposit, transactions view) and saved to `screenshots/`.
+- **Comment-Free Codebase**: All source code is kept clean of comments for better readability and maintainability.
 
 ## Setup
 
 ```bash
+# Install dependencies
 npm install
+
+# Install Playwright browsers (chromium)
 npx playwright install --with-deps chromium
-cp .env.example .env   # already present, edit if needed
+
+# Create environment file from template
+cp .env.example .env
 ```
 
 ## Run Tests
 
 ```bash
-# All tests
+# All tests (headless)
 npm test
 
 # Specific suites
@@ -61,3 +68,12 @@ npm run test:headed
 # View HTML report
 npm run report
 ```
+
+## CI/CD (GitHub Actions)
+
+This project includes a `.github/workflows/playwright.yml` file that:
+- Executes automatically on every **push** or **pull request** to the `main` branch.
+- Can be triggered manually via **workflow_dispatch**.
+- Configures `BASE_URL` directly in the cloud environment.
+- Uploads the **Playwright Report** (30-day retention).
+- Uploads **Screenshots** as artifacts specifically on failure for easier debugging.
