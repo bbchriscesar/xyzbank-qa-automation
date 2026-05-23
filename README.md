@@ -77,3 +77,5 @@ This project includes a `.github/workflows/playwright.yml` file that:
 - Configures `BASE_URL` directly in the cloud environment.
 - Uploads the **Playwright Report** (30-day retention).
 - Uploads **Screenshots** as artifacts specifically on failure for easier debugging.
+
+This is a sample change to trigger the pipeline
